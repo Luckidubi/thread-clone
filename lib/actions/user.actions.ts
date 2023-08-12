@@ -1,9 +1,8 @@
 "use server";
 
-
 import { revalidatePath } from "next/cache";
 import User from "../models/user";
-import connectToDB  from "../mongoose";
+import connectToDB from "../mongoose";
 
 interface Props {
   userId: string;
@@ -21,7 +20,7 @@ export async function updateUser({
   image,
   path,
 }: Props): Promise<void> {
-  connectToDB();
+  await connectToDB();
 
   try {
     await User.findOneAndUpdate(
@@ -47,8 +46,8 @@ export async function updateUser({
 
 export async function fetchUser(userId: string) {
   try {
-    connectToDB();
-     return await User.findOne({ id: userId })
+    await connectToDB();
+    return await User.findOne({ id: userId });
     //.populate({
     //     path: 'communities',
     //     model: 'Community',
@@ -56,5 +55,4 @@ export async function fetchUser(userId: string) {
   } catch (error: any) {
     throw new Error("Failed to fetch user: " + error.message);
   }
-
 }

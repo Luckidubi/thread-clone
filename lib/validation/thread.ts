@@ -10,5 +10,5 @@ export const CommentValidation = z.object({
     .string()
     .nonempty()
     .min(3, { message: "Thread must be at least 3 characters long" }),
-  accountId: z.string(),
+  
 });
